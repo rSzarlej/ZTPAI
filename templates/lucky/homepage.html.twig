@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row p-3">
+            <div class="col-12 ">
+                <div class="row">
+                <form action="{{ path('app_saysmthbtn')}}" method="POST">
+                    <button class="btn btn-question">Say something</button>
+                </form>
+                <form action="{{ path('app_showmine')}}" method="POST">
+                    <button class="btn btn-question">Show mine</button>
+                </form>
+                <form action="{{ path('app_searchusrbtn')}}" method="POST">
+                    <button class="btn btn-question">Search</button>
+                </form>
+            </div>
+            </div>
+        </div>
+
+        {% for msg in messages %}
+        <div class="row">
+            <div class="col-12 mt-3">
+                <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
+                    <div class="q-container p-4">
+                        <div class="row">
+                            <div class="col-2 text-center">
+                                <img src="{{ asset('images/tisha.png') }}" width="100" height="100">
+                                <div class="d-block mt-3 vote-arrows js-vote-arrows">
+                                    <a class="vote-up" href="#" data-direction="up" data-msgid="{{ msg.id }}"><i class="far fa-arrow-alt-circle-up"></i></a>
+                                    <span><span class="js-vote-total">{{ msg.votes }}</span></span>
+                                    <a class="vote-down" href="#" data-direction="down" data-msgid="{{ msg.id }}"><i class="far fa-arrow-alt-circle-down"></i></a>
+                                </div>
+                            </div>
+                            <div class="col">
+                                        {% for usr in users %}
+                                            {% if usr.id == msg.userId %}
+                                                <h3><a class="q-title" href="{{path('app_lucky_show', {slug: usr.name } )}}">
+                                                {{ usr.name }}
+                                                </h3></a>
+                                            {% endif %}
+                                        {% endfor %}
+                                <div class="q-display p-3">
+                                    <i class="fa fa-quote-left mr-3"></i>
+                                    <p class="d-inline">{{ msg.msgText }}</p>
+                                    <p class="pt-4"><strong>-- {{ msg.date|date('Y-m-d H:i:s') }}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {{ infoMsg }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/vote_show.js') }}"></script>
+{% endblock %}
+

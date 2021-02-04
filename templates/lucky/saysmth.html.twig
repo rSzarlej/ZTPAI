@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div>
+            <form action="{{ path('app_saysmth') }}" method="POST">
+                <textarea name="text"></textarea>
+        </div>
+        <div>
+                <input class="btn btn-sm btn-secondary" type="submit">
+        </div>
+            </form>
+    </div>
+{% endblock %}

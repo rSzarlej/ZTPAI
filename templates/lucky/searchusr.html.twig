@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <form action="{{ path('app_searchusr') }}" method="POST">
+            User name: <input type="text" name="userName">
+            <input class="btn btn-sm btn-secondary" type="submit">
+        </form>
+    </div>
+{% endblock %}
